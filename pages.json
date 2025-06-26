@@ -5,6 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/selector/selector",
+			"style": {
+				"navigationBarTitleText": "下拉选择器"
+			}
 		}
 	],
 	"globalStyle": {
