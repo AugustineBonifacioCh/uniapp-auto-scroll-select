@@ -16,7 +16,6 @@
           scroll-y
           :style="{ height: '300px' }"
           :scroll-top="scrollTop"
-          @scroll="scrollHandler"
           :scroll-with-animation="false"
         >
           <view
@@ -41,19 +40,13 @@ export default {
       selectedOption: "",
       showSelector: false,
       scrollTop: 0,
-      selectorOptions: [
-        "选项1",
-        "选项2",
-        "选项3",
-        "选项4",
-        "选项5",
-        "选项6",
-        "选项7",
-        "选项8",
-        "选项9",
-        "选项10",
-      ],
+      selectorOptions: [],
     };
+  },
+  onLoad(options) {
+    for (let index0 = 0; index0 < 30; index0++) {
+      this.selectorOptions.push(`选项${index0}`);
+    }
   },
   methods: {
     toggleSelector() {
@@ -75,31 +68,31 @@ export default {
 
 <style scoped lang="scss">
 .selector-page {
-  padding: 20px;
+  padding: 20rpx;
 }
 
 .selector-container {
   position: relative;
   background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 8rpx;
+  padding: 16rpx;
 }
 
 .selector-label {
-  font-size: 14px;
+  font-size: 30rpx;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 16rpx;
   display: block;
 }
 
 .selector-display {
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 80rpx;
+  line-height: 80rpx;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 0 15px;
+  border-radius: 8rpx;
+  padding: 0 16rpx;
+  font-size: 30rpx;
 }
 
 .mask {
@@ -108,7 +101,8 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  // background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
 
@@ -119,8 +113,8 @@ export default {
   right: 0;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 5px;
+  border-radius: 8rpx;
+  margin-top: 16rpx;
   z-index: 1000;
 }
 
@@ -129,9 +123,10 @@ export default {
 }
 
 .option-item {
+  // 这里的单位为px
   height: 40px;
   line-height: 40px;
-  padding: 0 15px;
+  padding: 0 16rpx;
   border-bottom: 1px solid #eee;
 }
 
