@@ -2,7 +2,8 @@
   <view class="selector-page">
     <auto-scroll-select
       :value="15"
-      :options="selectorOptions"
+      :list="selectorOptions"
+      keyLabel="name"
       @change="handleAutoScrollSelectChange"
     ></auto-scroll-select>
   </view>
@@ -26,7 +27,7 @@ export default {
   onLoad(options) {
     for (let index0 = 0; index0 < 30; index0++) {
       let obj = {
-        label: `选项${index0}`,
+        name: `选项${index0}`,
         value: index0,
       };
       this.selectorOptions.push(obj);

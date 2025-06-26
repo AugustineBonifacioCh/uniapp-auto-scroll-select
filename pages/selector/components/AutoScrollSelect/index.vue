@@ -17,13 +17,13 @@
           :scroll-with-animation="false"
         >
           <view
-            v-for="(option, index) in options"
+            v-for="(option, index) in list"
             :key="index"
             class="option-item"
             :class="{ 'selected-option': selectedIndex === index }"
             @click.stop="selectOption(option, index)"
           >
-            {{ option.label }}
+            {{ option[keyLabel] }}
           </view>
         </scroll-view>
       </view>
@@ -35,7 +35,7 @@
 export default {
   name: "AutoScrollSelect",
   props: {
-    options: {
+    list: {
       type: Array,
       default: () => [],
     },
@@ -51,6 +51,14 @@ export default {
       type: [String, Number],
       default: "",
     },
+    keyLabel: {
+      type: String,
+      default: "label",
+    },
+    keyValue: {
+      type: String,
+      default: "value",
+    },
   },
   data() {
     return {
@@ -65,12 +73,12 @@ export default {
       immediate: true,
       handler(newVal) {
         if (newVal !== "") {
-          const index = this.options.findIndex(
-            (option) => option.value === newVal
+          const index = this.list.findIndex(
+            (option) => option[this.keyValue] === newVal
           );
           if (index >= 0) {
             this.selectedIndex = index;
-            this.selectedOption = this.options[index].label;
+            this.selectedOption = this.list[index][this.keyLabel];
             if (this.showSelector) {
               this.$nextTick(() => {
                 this.scrollTop = index * 40;
@@ -92,7 +100,7 @@ export default {
     },
     selectOption(item, index) {
       this.selectedIndex = index;
-      this.selectedOption = this.options[index].label;
+      this.selectedOption = this.list[index][this.keyLabel];
       this.showSelector = false;
       this.$emit("change", item, index);
     },
