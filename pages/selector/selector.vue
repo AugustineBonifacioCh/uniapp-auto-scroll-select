@@ -4,21 +4,26 @@
       <text class="selector-label">请选择:</text>
       <view class="selector-display">{{ selectedOption || "请选择" }}</view>
       <!-- 灰色遮罩层 -->
-      <view class="mask" v-if="showSelector" @click="toggleSelector"></view>
+      <view
+        class="mask"
+        v-if="showSelector === true"
+        @click.stop="toggleSelector"
+      ></view>
       <!-- 下拉选择框 -->
-      <view class="dropdown-container" v-if="showSelector">
+      <view class="dropdown-container" v-if="showSelector === true">
         <scroll-view
           class="options-scroll"
           scroll-y
-          :style="{
-            height: '300px',
-          }"
+          :style="{ height: '300px' }"
+          :scroll-top="scrollTop"
+          @scroll="scrollHandler"
+          :scroll-with-animation="false"
         >
           <view
             v-for="(option, index) in selectorOptions"
             :key="index"
             class="option-item"
-            @click="selectOption(index)"
+            @click.stop="selectOption(index)"
           >
             {{ option }}
           </view>
@@ -35,6 +40,7 @@ export default {
       selectedIndex: -1,
       selectedOption: "",
       showSelector: false,
+      scrollTop: 0,
       selectorOptions: [
         "选项1",
         "选项2",
@@ -51,8 +57,12 @@ export default {
   },
   methods: {
     toggleSelector() {
-      console.log(this.showSelector);
       this.showSelector = !this.showSelector;
+      if (this.showSelector && this.selectedIndex >= 0) {
+        this.$nextTick(() => {
+          this.scrollTop = this.selectedIndex * 40; // 每个选项高度为40px
+        });
+      }
     },
     selectOption(index) {
       this.selectedIndex = index;
