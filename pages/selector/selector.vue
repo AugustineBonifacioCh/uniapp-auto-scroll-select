@@ -22,9 +22,9 @@
             v-for="(option, index) in selectorOptions"
             :key="index"
             class="option-item"
-            @click.stop="selectOption(index)"
+            @click.stop="selectOption(option, index)"
           >
-            {{ option }}
+            {{ option.label }}
           </view>
         </scroll-view>
       </view>
@@ -45,7 +45,11 @@ export default {
   },
   onLoad(options) {
     for (let index0 = 0; index0 < 30; index0++) {
-      this.selectorOptions.push(`选项${index0}`);
+      let obj = {
+        label: `选项${index0}`,
+        value: index0,
+      };
+      this.selectorOptions.push(obj);
     }
   },
   methods: {
@@ -57,9 +61,9 @@ export default {
         });
       }
     },
-    selectOption(index) {
+    selectOption(item, index) {
       this.selectedIndex = index;
-      this.selectedOption = this.selectorOptions[index];
+      this.selectedOption = this.selectorOptions[index].label;
       this.showSelector = false;
     },
   },
