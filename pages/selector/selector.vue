@@ -1,22 +1,16 @@
 <template>
 	<view class="selector-page">
-		<auto-scroll-select :value="15" :list="selectorOptions" keyLabel="name"
-			@change="handleAutoScrollSelectChange"></auto-scroll-select>
+		<k-autoscroll-select :value="currentIndex" :list="selectorOptions" keyLabel="name"
+			@change="handleAutoScrollSelectChange"></k-autoscroll-select>
 	</view>
 </template>
 
 <script>
-	import AutoScrollSelect from "../selector/components/AutoScrollSelect/index";
 	export default {
-		components: {
-			AutoScrollSelect,
-		},
+		components: {},
 		data() {
 			return {
-				selectedIndex: -1,
-				selectedOption: "",
-				showSelector: false,
-				scrollTop: 0,
+				currentIndex: 0,
 				selectorOptions: [],
 			};
 		},
